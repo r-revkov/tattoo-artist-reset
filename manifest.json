@@ -1,0 +1,9 @@
+{
+  "name": "Tattoo Artist Reset",
+  "short_name": "Tattoo Reset",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f7f1",
+  "theme_color": "#183d32",
+  "description": "A self-guided tattoo artist mobility and strength routine."
+}

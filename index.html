@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#183d32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tattoo Reset">
+<title>Tattoo Artist Reset</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--ink:#173d32;--leaf:#4e9272;--paper:#f7f7f1;--card:#fff;--muted:#66736b;--line:#dfe6df}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:#1d2d26;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{background:var(--ink);color:white;padding:26px 20px 22px;border-radius:0 0 24px 24px}header .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}h1{font-size:27px;margin:7px 0}header p{margin:0;color:#d9e9df;font-size:14px}
+main{max-width:720px;margin:auto;padding:16px; padding-bottom:40px}.progress,.panel,.exercise{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:13px}.progressrow{display:flex;justify-content:space-between;align-items:center;font-weight:700}.bar{height:8px;background:#e7eee8;border-radius:99px;overflow:hidden;margin:12px 0 7px}.bar span{height:100%;display:block;background:var(--leaf);width:0;transition:width .2s}.small{color:var(--muted);font-size:13px;line-height:1.45}
+.tabs{display:flex;gap:8px;margin:15px 0}.tabs button,.action{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:white;color:var(--ink);font-weight:700;font-size:14px}.tabs button.active,.action.primary{background:var(--ink);color:white;border-color:var(--ink)}button{cursor:pointer}.section-title{font-size:20px;margin:20px 2px 5px}.exercise{padding:14px}.exhead{display:flex;gap:12px;align-items:flex-start}.check{width:25px;height:25px;accent-color:var(--leaf);flex-shrink:0;margin-top:2px}.exname{font-weight:750;font-size:17px}.dose{font-size:13px;color:var(--muted);margin-top:4px}.move{background:#eef5ef;border-radius:13px;padding:12px;margin-top:12px}.move strong{display:block;color:var(--ink);margin-bottom:5px}.motion{height:54px;display:flex;align-items:center;justify-content:center;font-size:27px;letter-spacing:7px;margin:2px 0 7px;color:var(--leaf);font-weight:800}.motion span{display:inline-block;animation:bob 1.8s ease-in-out infinite}.motion span:nth-child(2){animation-delay:.25s}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}.warning{border-left:4px solid #c88b38;background:#fff7e8;padding:13px;border-radius:10px;font-size:13px;line-height:1.5}.footer{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.footer button{flex:1}.hidden{display:none!important}label{cursor:pointer}h2{font-size:19px;margin:0 0 8px}.complete{color:var(--leaf);font-weight:700}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Mobility · Core · Posture · Stamina</div><h1>🖋️ Tattoo Artist Reset</h1><p>A gentle guided routine for long tattoo sessions and everyday strength.</p></header>
+<main>
+<div class="progress"><div class="progressrow"><span id="count">0 / 19 complete</span><span id="pct">0%</span></div><div class="bar"><span id="fill"></span></div><div class="small">Tap each checkbox as you finish. Progress is saved on this device.</div></div>
+<div class="tabs"><button id="tabWarm" class="active" onclick="show('warm')">1 · Warm-up</button><button id="tabStrength" onclick="show('strength')">2 · Strength</button><button id="tabBreak" onclick="show('break')">Hourly break</button></div>
+<section id="warm"><h2 class="section-title">Pre-session warm-up <span class="small">· 2–5 minutes</span></h2><p class="small">Before picking up your machine, and for gentle movement breaks during the day.</p><div id="warmList"></div></section>
+<section id="strength" class="hidden"><h2 class="section-title">Core & upper-body <span class="small">· about 10 minutes</span></h2><p class="small">Start with fewer reps or one set if needed. Quality and comfortable breathing come first.</p><div id="strengthList"></div></section>
+<section id="break" class="hidden"><h2 class="section-title">Hourly micro-break <span class="small">· 1–2 minutes</span></h2><p class="small">A quick reset between clients. You do not need to repeat the full workout every hour.</p><div id="breakList"></div></section>
+<div class="panel"><h2>Safety first</h2><div class="warning">Keep movements gentle and pain-free. Since lightheadedness or a racing heart can be a warning sign, stop exercising if these occur and seek medical advice before increasing intensity. Do not push through symptoms.</div></div>
+<div class="footer"><button class="action" onclick="resetChecks()">Reset all checkboxes</button><button class="action primary" onclick="window.print()">Print / Save PDF</button></div>
+<p class="small">Tip: after opening this page online in Safari, use Share → Add to Home Screen. See README for setup instructions.</p>
+</main>
+<script>
+const exercises=[
+{id:'chin',sec:'warm',name:'Chin tucks',dose:'10–15 slow reps',cue:'Head glides backward, not downward',how:'Sit tall. Glide your head straight backward to make a gentle double chin. Hold 2 seconds, then relax.',motion:'←  ●  →'},
+{id:'wrist',sec:'warm',name:'Wrist & elbow circles',dose:'5 circles each direction',cue:'Small, controlled circles',how:'Keep shoulders relaxed. Circle your wrists, then gently rotate your forearms and bend/straighten your elbows through a comfortable range.',motion:'↻  ⟲'},
+{id:'prayer',sec:'warm',name:'Prayer & reverse wrist stretch',dose:'10 seconds each position',cue:'Gentle stretch — never force',how:'Press palms together at chest height and gently lower your hands. Then extend one arm with palm outward and fingers pointing down/back. Switch sides.',motion:'🙏  ↘'},
+{id:'fingers',sec:'warm',name:'Finger flicks & pencil rolls',dose:'20–30 seconds',cue:'Open → relax → roll',how:'Gently spread and relax your fingers, then roll a pencil or marker between them. Keep your grip light.',motion:'✳  ✳  ✳'},
+{id:'shoulder',sec:'warm',name:'Cross-body shoulder stretch',dose:'30 seconds per side',cue:'Pull across, not upward',how:'Bring one arm across your chest. Use the other arm to draw it closer while keeping your shoulder relaxed and elbow below shoulder height.',motion:'←  🙆  →'},
+{id:'plank1',sec:'strength',name:'Plank · set 1',dose:'20–30 seconds',cue:'Head → hips → heels',how:'Brace your abdomen and keep your body straight. Start against a wall or sturdy elevated surface if a floor plank is too difficult.',motion:'●━━━━●'},
+{id:'plank2',sec:'strength',name:'Plank · set 2',dose:'20–30 seconds',cue:'Breathe; do not sag',how:'Repeat your chosen plank variation. Keep breathing rather than holding your breath.',motion:'●━━━━●'},
+{id:'plank3',sec:'strength',name:'Plank · set 3',dose:'20–30 seconds',cue:'Quality over duration',how:'Repeat with a steady, comfortable effort. Stop if you lose good form.',motion:'●━━━━●'},
+{id:'bird1',sec:'strength',name:'Bird-dog · set 1',dose:'5–10 reps per side',cue:'Opposite arm + leg',how:'Start on hands and knees. Extend your right arm and left leg, keeping hips level. Return and switch sides without arching your back.',motion:'↖  🧍  ↘'},
+{id:'bird2',sec:'strength',name:'Bird-dog · set 2',dose:'5–10 reps per side',cue:'Reach long, not high',how:'Repeat slowly, pausing briefly at full reach. Keep your neck in line with your spine.',motion:'↖  🧍  ↘'},
+{id:'bird3',sec:'strength',name:'Bird-dog · set 3',dose:'5–10 reps per side',cue:'Stay steady',how:'Repeat with controlled movement. Use fewer repetitions if your hips start rocking.',motion:'↖  🧍  ↘'},
+{id:'catcow',sec:'strength',name:'Cat-cow',dose:'6–10 slow cycles',cue:'Round → gently extend',how:'On hands and knees, gently round your back as you exhale, then extend it comfortably as you inhale. Move your spine, not just your neck.',motion:'🐈  ↔  🐄'},
+{id:'push',sec:'strength',name:'Wall or incline push-ups',dose:'2 sets of 6–10 reps',cue:'Lean in → press away',how:'Place hands on a wall or sturdy elevated surface. Bend your elbows to bring your chest toward it, then press away. Keep your body aligned.',motion:'↘  ▰  ↗'},
+{id:'row',sec:'strength',name:'Resistance-band rows / pull-aparts',dose:'2 sets of 8–12 reps',cue:'Elbows back → release',how:'For rows, anchor a band securely at chest height and pull elbows back, then release slowly. Without a safe anchor, use band pull-aparts instead.',motion:'←  ━  →'},
+{id:'walk',sec:'strength',name:'Easy walk or mobility',dose:'Optional: 2–5 minutes',cue:'Easy, conversational pace',how:'Walk comfortably or do gentle shoulder and hip mobility. Build duration gradually as stamina improves.',motion:'🚶  🚶'},
+{id:'micro1',sec:'break',name:'Chin tucks',dose:'5 gentle reps',cue:'Head glides backward',how:'Sit or stand tall and glide your head straight backward without tipping it up or down.',motion:'←  ●  →'},
+{id:'micro2',sec:'break',name:'Wrist circles',dose:'Both directions',cue:'Relax shoulders',how:'Make small, smooth wrist circles in both directions without forcing the range.',motion:'↻  ⟲'},
+{id:'micro3',sec:'break',name:'Finger flicks',dose:'20 seconds',cue:'Relax your grip',how:'Spread your fingers and gently flick them outward, then relax your hands.',motion:'✳  ✳  ✳'},
+{id:'micro4',sec:'break',name:'Stand and move',dose:'30–60 seconds',cue:'Change position',how:'Stand up, take a few easy steps, and let your shoulders relax.',motion:'↑  🚶  ↓'}
+];
+const storageKey='tattoo-reset-checks-v1'; let checked={}; try{checked=JSON.parse(localStorage.getItem(storageKey)||'{}')}catch(e){}
+function card(x){return `<article class="exercise"><label class="exhead"><input class="check" type="checkbox" ${checked[x.id]?'checked':''} onchange="toggle('${x.id}',this.checked)"><span><div class="exname">${x.name}</div><div class="dose">${x.dose}</div></span></label><div class="move"><div class="motion"><span>${x.motion}</span></div><strong>${x.cue}</strong><div>${x.how}</div></div></article>`}
+function render(){for(const s of ['warm','strength','break'])document.getElementById(s+'List').innerHTML=exercises.filter(x=>x.sec===s).map(card).join('');update()}
+function toggle(id,v){checked[id]=v;try{localStorage.setItem(storageKey,JSON.stringify(checked))}catch(e){}update()}
+function update(){let n=exercises.filter(x=>checked[x.id]).length;document.getElementById('count').textContent=`${n} / ${exercises.length} complete`;document.getElementById('pct').textContent=Math.round(n/exercises.length*100)+'%';document.getElementById('fill').style.width=(n/exercises.length*100)+'%'}
+function show(s){for(const id of ['warm','strength','break']){document.getElementById(id).classList.toggle('hidden',id!==s);document.getElementById('tab'+(id==='warm'?'Warm':id==='strength'?'Strength':'Break')).classList.toggle('active',id===s)}}
+function resetChecks(){if(confirm('Reset all workout and micro-break checkboxes?')){checked={};try{localStorage.removeItem(storageKey)}catch(e){}render()}}
+render();
+</script>
+</body></html>
